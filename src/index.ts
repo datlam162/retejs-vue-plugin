@@ -8,6 +8,10 @@ export * as Presets from './presets'
 export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
 export { default as Ref } from './Ref.vue'
+import type Vue from 'vue'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import { type App } from 'vue'
 
 /**
  * Signals that can be emitted by the plugin
@@ -22,6 +26,15 @@ type Requires<Schemes extends BaseSchemes> =
   | { type: 'unmount', data: { element: HTMLElement } }
 
 /**
+ * Vue plugin options used to setup the vue instance.
+ * e.g. app.use() can be done in the setup callback for vue2 or vue3.
+ */
+export type Props = {
+  setupVue3?: (app: App<Element>) => void;
+  setupVue2?: (app: Vue) => void;
+}
+
+/**
  * Vue plugin. Renders nodes, connections and other elements using React.
  * @priority 9
  * @emits connectionpath
@@ -33,9 +46,9 @@ export class VuePlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> exten
   presets: RenderPreset<Schemes, T>[] = []
   owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()
 
-  constructor() {
+  constructor(props?: Props) {
     super('vue-render')
-    this.renderer = getRenderer()
+    this.renderer = getRenderer(props)
 
     this.addPipe(context => {
       if (!context || typeof context !== 'object' || !('type' in context)) return context
