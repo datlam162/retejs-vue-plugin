@@ -1,7 +1,8 @@
 {
-  "name": "rete-vue-plugin",
-  "version": "2.0.4",
+  "name": "@samhammer/rete-vue-plugin",
+  "version": "2.0.5",
   "description": "",
+  "private": false,
   "scripts": {
     "build": "rete build -c rete.config.ts",
     "lint": "rete lint",
@@ -18,10 +19,10 @@
   "homepage": "https://retejs.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/retejs/vue-plugin.git"
+    "url": "https://github.com/SamhammerAG/retejs-vue-plugin"
   },
   "bugs": {
-    "url": "https://github.com/retejs/vue-plugin/issues"
+    "url": "https://github.com/SamhammerAG/retejs-vue-plugin/issues"
   },
   "peerDependencies": {
     "rete": "^2.0.1",
