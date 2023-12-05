@@ -22,8 +22,8 @@ export function create<P extends object>(element: HTMLElement, component: any, p
     }
   })
 
-  if (props?.setupVue3) {
-    props.setupVue3(app)
+  if (props?.setupVue) {
+    props.setupVue(app)
   }
 
   app.mount(element)
