@@ -8,11 +8,9 @@ export * as Presets from './presets'
 export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
 export { default as Ref } from './Ref.vue'
-
 import type Vue from 'vue'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
-// eslint-disable-next-line no-duplicate-imports
 import { type App } from 'vue'
 
 /**
@@ -29,10 +27,11 @@ type Requires<Schemes extends BaseSchemes> =
 
 /**
  * Vue plugin options used to setup the vue instance.
- * e.g. app.use() can be done in the setupVue callback.
+ * e.g. app.use() can be done in the setup callback for vue2 or vue3.
  */
 export type Props = {
-  setupVue?: (app: App<Element> | Vue) => void;
+  setupVue3?: (app: App<Element>) => void;
+  setupVue2?: (app: Vue) => void;
 }
 
 /**

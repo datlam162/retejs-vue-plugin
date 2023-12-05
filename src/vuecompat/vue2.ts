@@ -24,8 +24,8 @@ export function create(element: any, component: any, payload: any, onRendered: a
     element.appendChild(container)
   }
 
-  if (props?.setupVue) {
-    props.setupVue(app)
+  if (props?.setupVue2) {
+    props.setupVue2(app)
   }
 
   app.$mount(container || element)
