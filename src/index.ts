@@ -8,10 +8,10 @@ export * as Presets from './presets'
 export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
 export { default as Ref } from './Ref.vue'
-import type Vue from 'vue'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
-import { type App } from 'vue'
+// eslint-disable-next-line no-duplicate-imports
+import { type App } from 'vue' // vue3 import
 
 /**
  * Signals that can be emitted by the plugin
@@ -26,12 +26,20 @@ type Requires<Schemes extends BaseSchemes> =
   | { type: 'unmount', data: { element: HTMLElement } }
 
 /**
- * Vue plugin options used to setup the vue instance.
- * e.g. app.use() can be done in the setup callback for vue2 or vue3.
+ * Vue plugin options used to setup vue instance(s) used by retejs.
  */
 export type Props = {
+  /**
+   * Use this to setup vue3.
+   * @param [app] instance of vue3 app that can be configured.
+   */
   setupVue3?: (app: App<Element>) => void;
-  setupVue2?: (app: Vue) => void;
+
+  /**
+   * Use this to setup vue2.
+   *  @returns options used for vue instance.
+   */
+  setupVue2?: () => Record<string, unknown>;
 }
 
 /**

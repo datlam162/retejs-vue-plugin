@@ -3,6 +3,8 @@ import Vue from 'vue'
 import { type Props } from './../index'
 
 export function create(element: any, component: any, payload: any, onRendered: any, props?: Props) {
+  const options = props?.setupVue2 ? props.setupVue2() : {}
+
   const app = new Vue({
     props: ['payload'],
     render(h) {
@@ -13,7 +15,8 @@ export function create(element: any, component: any, payload: any, onRendered: a
     },
     updated() {
       onRendered()
-    }
+    },
+    ...options
   })
 
   app.payload = payload
@@ -22,10 +25,6 @@ export function create(element: any, component: any, payload: any, onRendered: a
 
   if (container) {
     element.appendChild(container)
-  }
-
-  if (props?.setupVue2) {
-    props.setupVue2(app)
   }
 
   app.$mount(container || element)
