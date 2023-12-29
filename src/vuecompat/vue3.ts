@@ -9,7 +9,7 @@ type Instance<P> = { app: App<Element>, payload: Ref<P> }
 export function create<P extends object>(element: HTMLElement, component: any, payload: P, onRendered: any, props?: Props): Instance<P> {
   const state = ref(markRaw(payload)) as Ref<P>
 
-  const app = createApp({
+  const context = {
     render() {
       // @ts-ignore
       return h(component, { ...state.value, seed: Math.random() })
@@ -20,11 +20,9 @@ export function create<P extends object>(element: HTMLElement, component: any, p
     updated() {
       onRendered()
     }
-  })
-
-  if (props?.setupVue3) {
-    props.setupVue3(app)
   }
+
+  const app = props?.setup ? props.setup(context) : createApp(context)
 
   app.mount(element)
 

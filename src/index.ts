@@ -8,10 +8,6 @@ export * as Presets from './presets'
 export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
 export { default as Ref } from './Ref.vue'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-// eslint-disable-next-line no-duplicate-imports
-import { type App } from 'vue' // vue3 import
 
 /**
  * Signals that can be emitted by the plugin
@@ -30,16 +26,11 @@ type Requires<Schemes extends BaseSchemes> =
  */
 export type Props = {
   /**
-   * Use this to setup vue3.
-   * @param [app] instance of vue3 app that can be configured.
+   * Use this to setup vue.
+   *  @param [context] to be used for createApp({ ...context }) or new Vue({ ...context })
+   *  @returns app / vue instance.
    */
-  setupVue3?: (app: App<Element>) => void;
-
-  /**
-   * Use this to setup vue2.
-   *  @returns options used for vue instance.
-   */
-  setupVue2?: () => Record<string, unknown>;
+  setup?: (context: object) => object;
 }
 
 /**

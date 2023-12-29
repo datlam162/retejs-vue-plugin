@@ -1,11 +1,9 @@
-import Vue from 'vue'
+import Vue, { ComponentOptions } from 'vue'
 
 import { type Props } from './../index'
 
 export function create(element: any, component: any, payload: any, onRendered: any, props?: Props) {
-  const options = props?.setupVue2 ? props.setupVue2() : {}
-
-  const app = new Vue({
+  const context: ComponentOptions<Vue> & { payload?: Record<string, unknown> } = {
     props: ['payload'],
     render(h) {
       return h(component, { props: { ...this.payload, seed: Math.random() }, ref: 'child' })
@@ -15,9 +13,10 @@ export function create(element: any, component: any, payload: any, onRendered: a
     },
     updated() {
       onRendered()
-    },
-    ...options
-  })
+    }
+  }
+
+  const app: Vue & { payload?: Record<string, unknown> } = props?.setup ? props.setup(context) as Vue : new Vue(context)
 
   app.payload = payload
 
