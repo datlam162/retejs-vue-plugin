@@ -18,7 +18,7 @@ function getPlugins(vueVersion: 2 | 3): NonNullable<ReteOptions['plugins']> {
       pugRuntime: false
     }),
     // eslint-disable-next-line no-undef
-    vueVersion === 2 ? vue2() : vue3({ compiler: require('@vue/compiler-sfc') }),
+    vueVersion === 2 ? vue2() : vue3({ compiler: require('@vue/compiler-sfc'), script: { defineModel: true } }),
     scss({
       insert: true
     })
